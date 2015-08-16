@@ -27,6 +27,7 @@ angular.module('signature').directive('signaturePad', [
             var signature = {};
             
             if (!signaturePad.isEmpty()) {
+              signaturePad.cropImg();
               signature.dataUrl = signaturePad.toDataURL();
               signature.isEmpty = false;
             } else {
