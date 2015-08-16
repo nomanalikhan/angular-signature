@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "angular": "~1.3",
-    "signature_pad": "~1.3"
+    "signature_pad": "git://github.com/nomanalikhan/signature_pad.git"
   }
 }
 
