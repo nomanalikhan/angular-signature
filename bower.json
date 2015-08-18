@@ -6,11 +6,11 @@
   "ignore": [],
   "repository": {
     "type": "git",
-    "url": "git://github.com/nomanalikhan/angular-signature.git"
+      "url": "git://github.com/legalthings/signature-pad-angular.git"
   },
   "dependencies": {
     "angular": "~1.3",
-    "signature_pad": "git://github.com/nomanalikhan/signature_pad.git"
+    "signature_pad": "git://github.com/nomanalikhan/signature_pad.git#master"
   }
 }
 
