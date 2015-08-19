@@ -5,15 +5,15 @@
 
 angular.module('signature', []);
 
-angular.module('signature').directive('signaturePad', [
-  function () {
+angular.module('signature').directive('signaturePad', ['$window',
+  function ($window) {
     'use strict';
   
     var signaturePad, canvas, element, EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
     return {
       restrict: 'EA',
       replace: true,
-      template: '<div class="signature" ng-style="{height: height + \'px\'; width: width + \'px\'}"><canvas height="{{ height }}" width="{{ width }}"></canvas></div>',
+      template: '<div class="signature"><canvas></canvas></div>',
       scope: {
         accept: '=',
         clear: '=',
@@ -46,10 +46,23 @@ angular.module('signature').directive('signaturePad', [
       link: function ($scope, $element) {
         canvas = $element.find('canvas');
         element = $element;
+        var w = angular.element($window);
+
+        // resize the canvas to fill browser window dynamically
+        w.bind('resize', function () {
+            resizeCanvas();
+        });
+
+        function resizeCanvas() {
+          canvas[0].width = element.width();
+          canvas[0].height = element.height();
+        }
+        resizeCanvas();
+        
         signaturePad = new SignaturePad(canvas.get(0));
         
-        if (!$scope.height) $scope.height = 220;
-        if (!$scope.width) $scope.width = 568;
+        // if (!$scope.height) $scope.height = 220;
+        // if (!$scope.width) $scope.width = 568;
         
         if ($scope.signature && !$scope.signature.$isEmpty && $scope.signature.dataUrl) {
           signaturePad.fromDataURL($scope.signature.dataUrl);
@@ -61,4 +74,3 @@ angular.module('signature').directive('signaturePad', [
 
 // Backward compatibility
 angular.module('ngSignaturePad', ['signature']);
-
